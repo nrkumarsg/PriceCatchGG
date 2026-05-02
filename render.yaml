@@ -3,9 +3,8 @@ services:
   - type: web
     name: price-catch-backend
     env: docker
-    repo: https://github.com/YOUR_USERNAME/PriceCatchGG # Replace with your repo URL
-    plan: free # Can be upgraded for more RAM
-    region: singapore # Choose closest to you
+    plan: free
+    region: singapore
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     envVars:
@@ -17,21 +16,19 @@ services:
           name: price-catch-redis
           property: connectionString
       - key: GEMINI_API_KEY
-        sync: false # Set this in Render Dashboard
+        sync: false
       - key: GOOGLE_VISION_API_KEY
-        sync: false # Set this in Render Dashboard
+        sync: false
 
   # Redis Instance
   - type: redis
     name: price-catch-redis
     plan: free
     region: singapore
-    ipAllowList: [] # Only allow internal traffic
+    ipAllowList: []
 
   # Frontend Flutter Web Service
-  - type: web
+  - type: static_site
     name: price-catch-frontend
-    env: static
-    repo: https://github.com/YOUR_USERNAME/PriceCatchGG # Replace with your repo URL
     buildCommand: "cd frontend && flutter build web --release"
     publishPath: frontend/build/web
